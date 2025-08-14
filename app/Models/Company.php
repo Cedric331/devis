@@ -19,4 +19,3 @@ class Company extends Model
         'payment_instructions',
     ];
 }
-
