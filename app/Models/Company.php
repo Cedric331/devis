@@ -18,4 +18,24 @@ class Company extends Model
         'bic',
         'payment_instructions',
     ];
+
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
+
+    public function clients()
+    {
+        return $this->hasMany(Client::class);
+    }
+
+    public function quotes()
+    {
+        return $this->hasMany(Quote::class);
+    }
+
+    public function stripeAccount()
+    {
+        return $this->hasOne(StripeAccount::class);
+    }
 }
