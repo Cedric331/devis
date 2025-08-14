@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Company;
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,11 +13,24 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        $this->call(RolePermissionSeeder::class);
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        $company = Company::factory()->create([
+            'name' => 'Demo Company',
         ]);
+
+        $owner = User::factory()->create([
+            'name' => 'Owner User',
+            'email' => 'owner@example.com',
+            'company_id' => $company->id,
+        ]);
+        $owner->assignRole('owner');
+
+        $member = User::factory()->create([
+            'name' => 'Member User',
+            'email' => 'member@example.com',
+            'company_id' => $company->id,
+        ]);
+        $member->assignRole('member');
     }
 }
